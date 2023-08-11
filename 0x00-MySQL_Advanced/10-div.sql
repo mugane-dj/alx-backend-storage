@@ -1,9 +1,9 @@
 -- creates a function SafeDiv that divides (and returns) the first by the second number.
 DELIMITER //
 CREATE FUNCTION SafeDiv(a INT, b INT)
-RETURNS INT
+RETURNS FLOAT
 BEGIN
-   DECLARE result INT;
+   DECLARE result FLOAT;
 
    IF b = 0 THEN
        SET result = 0;
