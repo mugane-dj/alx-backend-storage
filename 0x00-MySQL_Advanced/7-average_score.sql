@@ -2,7 +2,7 @@
 DELIMITER //
 CREATE PROCEDURE ComputeAverageScoreForUser(IN user_id INT)
 BEGIN
-    DECLARE project_score DECIMAL(10, 2);
+    DECLARE project_score FLOAT;
     DECLARE project_count INT;
 
     SET project_score = 0;
