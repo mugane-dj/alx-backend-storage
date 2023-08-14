@@ -15,13 +15,11 @@ if __name__ == "__main__":
     method_patch = nginx_collection.count_documents({"method": "PATCH"})
     method_delete = nginx_collection.count_documents({"method": "DELETE"})
     status_check = nginx_collection.count_documents({"path": "/status"})
-    print(
-        f"""{log_count} logs
-Methods:
-    method GET: {method_get}
-    method POST: {method_post}
-    method PUT: {method_put}
-    method PATCH: {method_patch}
-    method DELETE: {method_delete}
-{status_check} status check"""
-    )
+    print("{} logs".format(log_count))
+    print("Methods:")
+    print("\tmethod GET: {}".format(method_get))
+    print("\tmethod POST: {}".format(method_post))
+    print("\tmethod PUT: {}".format(method_put))
+    print("\tmethod PATCH: {}".format(method_patch))
+    print("\tmethod DELETE: {}".format(method_delete))
+    print("{} status check".format(status_check))
