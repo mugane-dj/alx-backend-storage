@@ -16,6 +16,6 @@ def insert_school(mongo_collection, **kwargs):
              `mongo_collection` object.
     """
     obj = {}
-    for k, v in kwargs.items:
+    for k, v in kwargs.items():
         obj[k] = v
     return mongo_collection.insert_one(obj).inserted_id
