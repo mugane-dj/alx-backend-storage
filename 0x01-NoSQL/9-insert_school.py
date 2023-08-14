@@ -15,7 +15,4 @@ def insert_school(mongo_collection, **kwargs):
     :return: the result of the `insertOne` method called on the
              `mongo_collection` object.
     """
-    obj = {}
-    for k, v in kwargs.items():
-        obj[k] = v
-    return mongo_collection.insert_one(obj).inserted_id
+    return mongo_collection.insert_one(kwargs).inserted_id
