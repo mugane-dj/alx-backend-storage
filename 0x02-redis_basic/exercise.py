@@ -21,6 +21,7 @@ class Cache:
         value = self._redis.get(key)
         if value is None:
             return None
+
         if fn is not None:
             return fn(value)
         return value
