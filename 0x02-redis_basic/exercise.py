@@ -4,7 +4,7 @@ Cache class - A redis instance
 """
 import redis
 import uuid
-from typing import Union
+from typing import Union, Optional, Callable
 
 
 class Cache:
@@ -14,5 +14,19 @@ class Cache:
 
     def store(self, data: Union[str, bytes, int, float]) -> str:
         key = str(uuid.uuid4())
-        self._redis.mset({key: data})
+        self._redis.set({key: data})
         return key
+
+    def get(self, key: str, fn: Callable = None) -> Union[bytes, str, int]:
+        value = self._redis.get(key)
+        if value is None:
+            return None
+        if fn is not None:
+            return fn(value)
+        return value
+
+    def get_str(self, key: str) -> str:
+        return self.get(key, fn=lambda x: x.decode('utf-8'))
+
+    def get_int(self, key: str) -> int:
+        return self.get(key, fn=int)
