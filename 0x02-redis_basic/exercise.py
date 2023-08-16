@@ -34,7 +34,7 @@ def replay(method: Callable) -> None:
     The `replay` function retrieves information from a Redis
     database to display the number of times a method was called
     and the corresponding inputs and outputs.
-    
+
     :param method: The `method` parameter is expected to be a
                    callable object, such as a function or a method.
                    It should be a function that you want to replay
