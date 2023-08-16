@@ -30,6 +30,18 @@ def call_history(method: Callable) -> Callable:
 
 
 def replay(method: Callable) -> None:
+    """
+    The `replay` function retrieves information from a Redis
+    database to display the number of times a method was called
+    and the corresponding inputs and outputs.
+    
+    :param method: The `method` parameter is expected to be a
+                   callable object, such as a function or a method.
+                   It should be a function that you want to replay
+                   and print the details of its previous
+    invocations
+    :type method: Callable
+    """
     r = redis.Redis()
     method_name = method.__qualname__
     count = r.get(method_name).decode('utf-8')
