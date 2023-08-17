@@ -79,10 +79,11 @@ def replay(method: Callable) -> None:
 
 
 class Cache:
+    """
+    Cache class that is a Redis instance for using various redis
+    functions such as set and get
+    """
     def __init__(self):
-        """
-        Initialize a Cache object
-        """
         self._redis = redis.Redis()
         self._redis.flushdb()
 
