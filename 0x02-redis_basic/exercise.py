@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """
 Cache class - A redis instance
+count_calls - A function that counts how many times a function
+              has been called
+call_history - A function that stores the history of inputs and outputs
+               for a particular function
+replay - A function that displays the history of calls of a particular function
 """
 import redis
 import uuid
@@ -71,7 +76,7 @@ def replay(method: Callable) -> None:
     outputs = r.lrange(method_name + ":outputs", 0, -1)
     print(f"{method_name} was called {count} times:")
     for k, v in zip(inputs, outputs):
-        print(f"{method_name}(*({k.decode('utf-8')},)) -> {v.decode('utf-8')}")
+        print(f"{method_name}(*({k.decode()},)) -> {v.decode('utf-8')}")
 
 
 class Cache:
