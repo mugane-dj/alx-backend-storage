@@ -81,17 +81,46 @@ def replay(method: Callable) -> None:
 
 class Cache:
     def __init__(self):
+        """
+        Initialize a Cache object
+        """
         self._redis = redis.Redis()
         self._redis.flushdb()
 
     @count_calls
     @call_history
     def store(self, data: Union[str, bytes, int, float]) -> str:
+        """
+        The `store` function takes in data of type `str`, `bytes`,
+        `int`, or `float`, generates a unique key using `uuid.uuid4()`,
+        stores the data in Redis using the generated key, and returns the key.
+
+        :param data: The `data` parameter can be of type `str`, `bytes`,
+                     `int`, or `float`. It represents the data that you
+                     want to store in the Redis database
+        :type data: Union[str, bytes, int, float]
+        :return: a string, which is the key generated for storing the
+                 data in Redis.
+        """
         key = str(uuid.uuid4())
         self._redis.set(key, data)
         return key
 
     def get(self, key: str, fn: Callable = None) -> Union[bytes, str, int]:
+        """
+        The `get` function retrieves a value from Redis using a given key,
+        and optionally applies a function to the value before returning it.
+
+        :param key: The `key` parameter is a string that represents the key
+                    of the value to retrieve from the Redis database
+        :type key: str
+        :param fn: The `fn` parameter is a callable function that can be
+                   passed as an argument to the `get`method. It is an optional
+                   parameter, meaning it can be omitted when calling the method
+        :type fn: Callable
+        :return: The method `get` returns the value associated with the given
+                 key in the Redis database.
+        """
         value = self._redis.get(key)
         if value is None:
             return None
@@ -101,7 +130,26 @@ class Cache:
         return value
 
     def get_str(self, key: str) -> str:
+        """
+        The `get_str` function retrieves a value from a dictionary
+        using a given key and converts it to a string using the `decode`
+        method with the 'utf-8' encoding.
+
+        :param key: The `key` parameter is a string that represents the
+                    key used to retrieve the value.
+        :type key: str
+        :return: The `get_str` method returns a string.
+        """
         return self.get(key, fn=lambda x: x.decode('utf-8'))
 
     def get_int(self, key: str) -> int:
+        """
+        The function `get_int` returns the value associated with a given
+        key as an integer.
+
+        :param key: The `key` parameter is a string that represents the
+                    key of the value you want to retrieve from a dictionary
+        :type key: str
+        :return: The `get_int` method is returning an integer value.
+        """
         return self.get(key, fn=int)
