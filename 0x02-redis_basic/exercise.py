@@ -76,7 +76,7 @@ def replay(method: Callable) -> None:
     outputs = r.lrange(method_name + ":outputs", 0, -1)
     print(f"{method_name} was called {count} times:")
     for k, v in zip(inputs, outputs):
-        print(f"{method_name}(*({k.decode()},)) -> {v.decode('utf-8')}")
+        print(f"{method_name}(*{k.decode('utf-8')}) -> {v.decode('utf-8')}")
 
 
 class Cache:
