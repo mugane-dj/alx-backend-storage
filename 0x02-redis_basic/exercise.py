@@ -13,7 +13,7 @@ def count_calls(method: Callable) -> Callable:
     The `count_calls` function is a decorator that counts the
     number of times a method is called and stores the count in a
     Redis database.
-    
+
     :param method: The `method` parameter is a callable object,
                    such as a function or method, that we want to
                    count the number of times it is called
@@ -32,7 +32,7 @@ def call_history(method: Callable) -> Callable:
     """
     The `call_history` function is a decorator that logs the inputs
     and outputs of a method to a Redis database.
-    
+
     :param method: The `method` parameter is a callable object,
                    such as a function or method, that we want to
                    wrap with the `call_history` decorator
