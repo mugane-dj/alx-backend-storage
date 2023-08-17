@@ -9,6 +9,17 @@ from functools import wraps
 
 
 def count_calls(method: Callable) -> Callable:
+    """
+    The `count_calls` function is a decorator that counts the
+    number of times a method is called and stores the count in a
+    Redis database.
+    
+    :param method: The `method` parameter is a callable object,
+                   such as a function or method, that we want to
+                   count the number of times it is called
+    :type method: Callable
+    :return: The `count_calls` function returns a wrapper function.
+    """
     @wraps(method)
     def wrapper(self, *args, **kwargs):
         key = method.__qualname__
@@ -18,6 +29,17 @@ def count_calls(method: Callable) -> Callable:
 
 
 def call_history(method: Callable) -> Callable:
+    """
+    The `call_history` function is a decorator that logs the inputs
+    and outputs of a method to a Redis database.
+    
+    :param method: The `method` parameter is a callable object,
+                   such as a function or method, that we want to
+                   wrap with the `call_history` decorator
+    :type method: Callable
+    :return: The function `call_history` returns a wrapper function
+             `wrapper`.
+    """
     @wraps(method)
     def wrapper(self, *args):
         input_key = method.__qualname__ + ":inputs"
@@ -49,7 +71,7 @@ def replay(method: Callable) -> None:
     outputs = r.lrange(method_name + ":outputs", 0, -1)
     print(f"{method_name} was called {count} times:")
     for k, v in zip(inputs, outputs):
-        print(f"{method_name}(*{k.decode('utf-8')}) -> {v.decode('utf-8')}")
+        print(f"{method_name}(*({k.decode('utf-8')},)) -> {v.decode('utf-8')}")
 
 
 class Cache:
