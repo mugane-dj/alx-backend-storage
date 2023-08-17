@@ -65,8 +65,7 @@ def replay(method: Callable) -> None:
     :param method: The `method` parameter is expected to be a
                    callable object, such as a function or a method.
                    It should be a function that you want to replay
-                   and print the details of its previous
-    invocations
+                   and print the details of its previous invocations
     :type method: Callable
     """
     r = redis.Redis()
